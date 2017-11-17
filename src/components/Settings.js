@@ -1,5 +1,5 @@
-import React, {Comonent } from "react";
-import {connect } from " react-redux";
+import React, {Component } from "react";
+import  { connect } from " react-redux";
 import agent from "../agent";
 import ListErrors from "./ListErrors";
 

@@ -26,7 +26,7 @@ class App extends Component {
 		const token = window.locationStorage.getItem("jwt");
 		if(token){
 			//set wwith agent
-		//	agent.setToken(token);
+			//agent.setToken(token);
 		}
 		this.props.onload(token ? agent.Auth.current() : null, token);
 
@@ -41,14 +41,13 @@ class App extends Component {
 
   render() {
 		// find out if url setting isRoot?
-	  const appName = this.props.appName;
+	const appName = this.props.appName;
     return (
 		<div> 
 			<Header 
 			appName={appName} 
 			rootURL={true}
-			currentUser={this.props.currentUser} 
-			/>
+			 />
 			{this.props.children} 
 		</div>
     );

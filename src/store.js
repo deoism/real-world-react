@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import {promiseMiddleware, promiseMiddleware} from "./middleware";
-
+import {promiseMiddleware, localStorageMiddleware} from "./middleware";
 import auth from "./reducers/Auth";
 import common from "./reducers/common";
 import home from "./reducers/home";
@@ -20,7 +19,7 @@ const middleware = applyMiddleware(promiseMiddleware);
 const store = createStore(
     reducer,
     compose(
-        applyMiddleware(promiseMiddlewaremiddleware),
+        applyMiddleware(promiseMiddlewaremiddleware, localStorageMiddleware),
         window.devToolsExtensioin ? window.devToolsExtension() :f => f
     )
 );

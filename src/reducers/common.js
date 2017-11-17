@@ -6,12 +6,13 @@ const defaultState = {
 
 export default (state=defaultState, action) => {
     console.log(action.type);
+
     switch(action.type){
         
         case "APP_LOAD":
             return{
                 ...state,
-                token: action.error ?null : action.payload.user.token,
+                token: action.error ?   null : action.payload.user.token,
                 currentUser: action.payload ? action.payload.user :null,
                 appLoaded:true
             };
@@ -26,9 +27,7 @@ export default (state=defaultState, action) => {
                 token: action.error ? null: action.payload.user,
                 currentUser : acttion.payload? action.payload.user : null,
                 appLoaded: true
-            };
-            default:
-                return state;
+            }; 
         case "LOGOUT":
             return{
                 ...state,
@@ -38,7 +37,8 @@ export default (state=defaultState, action) => {
             }
        case "SETTINGS_SAVED":
         return{
-            ...stateredirectTo: action.error ?null : "/",
+            ...state,
+            eredirectTo: action.error ?null : "/",
             currentUser: action.error? null: action.payload.user
         }
         case "REGISTER":
@@ -47,7 +47,7 @@ export default (state=defaultState, action) => {
             redirectTo: "/",
             token:null,
             currentUser:null
-        }
+        };
         
         
             default: return state;

@@ -24,7 +24,7 @@ const LoggedOutView = props =>{
 
 			</ul>
 		);
-	};
+	}	
 		
 	return null;
 };
@@ -70,7 +70,7 @@ class Header extends Component {
 					<div className="container">
 						<Link className="navbar-band">
 						{this.props.appName.toLowerCase()} 
-						</ Link>
+						</ Link> 
 					
 					<LoggedOutView currentUser={this.props.currentUser} />
 					<LoggedInView currentUser={this.props.currentUser} />
