@@ -29,6 +29,22 @@ export default (state = defaultState, action) => {
         token: action.error ? null : action.payload.user.token,
         currentUser: action.error ? null : action.payload.user
       };
+
+    case "ARTICLE_SUBMITTED":
+      const redirectUrl = `article/${actioin.payload.article.slug}`;
+      return{ ...state, redireToo:redirectUrl};
+      case "DELETE_ARTICLE":
+      return{
+        ...state,
+        redirectTo: "/"
+
+      };
+    case "SETTINGS_SAVED":
+      return{
+        ...state,
+        redirectTo: action.error ? null : "/",
+        currentUser: acction.error ? null : action.payload.user
+      };
     default:
       return state;
   }
