@@ -9,8 +9,10 @@ export default (state = {}, action) => {
       case "ASYNC_START":
         if (action.subtype === "ARTICLE_SUBMITTED") {
           return { ...state, inProgress: true };
+        } else {
+            return state;
         }
-        return state;
+       
       default:
         return state;
     }

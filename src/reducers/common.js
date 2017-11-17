@@ -1,50 +1,23 @@
-const defaultState = {
-  appName: "Meowdium",
-  articles: null,
-  token: null
-};
-
-export default (state = defaultState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case "APP_LOAD":
-      return {
-        ...state,
-        token: action.token || null,
-        currentUser: action.payload ? action.payload.user : null,
-        appLoaded: true
-      };
-    case "REDIRECT":
-      return { ...state, redirectTo: null };
     case "LOGIN":
       return {
         ...state,
-        redirectTo: action.error ? null : "/",
-        token: action.error ? null : action.payload.user.token,
-        currentUser: action.error ? null : action.payload.user
+        inProgress: false,
+        errors: action.error ? action.payload.errors : null
       };
+      
     case "REGISTER":
       return {
-        ...state,
-        redirectTo: action.error ? null : "/",
-        token: action.error ? null : action.payload.user.token,
-        currentUser: action.error ? null : action.payload.user
+        ...state, 
+        inProgress: false,
+        errors: action.error ? action.payload.errors : null
       };
-
-    case "ARTICLE_SUBMITTED":
-      const redirectUrl = `article/${actioin.payload.article.slug}`;
-      return{ ...state, redireToo:redirectUrl};
-      case "DELETE_ARTICLE":
-      return{
-        ...state,
-        redirectTo: "/"
-
-      };
-    case "SETTINGS_SAVED":
-      return{
-        ...state,
-        redirectTo: action.error ? null : "/",
-        currentUser: acction.error ? null : action.payload.user
-      };
+    case "ASYNC_START":
+      if (action.subtype === "LOGIN" || action.subtype === "REGISTER") {
+        return { ...state, inProgress: true };
+      }
+      return state;
     default:
       return state;
   }

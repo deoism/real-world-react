@@ -5,7 +5,7 @@ import Banner from "./Banner";
 
 import agent from "../../agent";
 
-const Promise = global.Promise;
+//const Promise = global.Promise;
 
 const mapStateToProps = state => ({
   appName: state.common.appName
