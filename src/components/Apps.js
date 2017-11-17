@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
  
 import agent from "../agent";
-import Header from "./Header";
-import Home from "./Home";
+import Header from "./Header"; 
 
 //
 const mapStateToProps = state => ({
