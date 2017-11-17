@@ -4,12 +4,8 @@ import MainView from "./MainView";
 import Banner from "./Banner";
 
 import agent from "../../agent";
-<<<<<<< HEAD
-//const Promise = global.Promise;
-=======
 
 const Promise = global.Promise;
->>>>>>> 8fdcd6776794960c824b18c71e0c9052b30e4999
 
 const mapStateToProps = state => ({
   appName: state.common.appName
@@ -19,10 +15,7 @@ const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch({ type: "HOME_PAGE_LOADED", payload })
 });
 
-<<<<<<< HEAD
-=======
 //class Home extends React.Component
->>>>>>> 8fdcd6776794960c824b18c71e0c9052b30e4999
 class Home extends Component {
   componentWillMount() {
     this.props.onLoad(agent.Articles.all());
@@ -46,8 +39,4 @@ class Home extends Component {
   }
 }
 
-<<<<<<< HEAD
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
->>>>>>> 8fdcd6776794960c824b18c71e0c9052b30e4999
