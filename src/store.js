@@ -7,7 +7,7 @@ import home     from "./reducers/home";
 import settings from "./reducers/settings.js";
 import article  from "./reducers/article";
 import editor   from "./reducers/editor";
-
+ 
 
 const reducer = combineReducers({
   auth,

@@ -69,7 +69,7 @@ class Header extends Component {
         <nav className="nav navbar-light">
           <div className="container">
             <Link to="/" className="navbar-brand">
-              {this.props.appName.toLowerCase()}
+              {this.props.appName}
             </Link>
 
             <LoggedOutView currentUser={this.props.currentUser} />
@@ -78,7 +78,7 @@ class Header extends Component {
           </div>
         </nav>
       </div>
-    );
+    );  
   }
 }
 

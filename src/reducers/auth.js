@@ -15,8 +15,8 @@ export default (state = {}, action) => {
     case "ASYNC_START":
       if (action.subtype === "LOGIN" || action.subtype === "REGISTER") {
         return { ...state, inProgress: true };
-      };
-      break;
+      }
+      return state;
     default:
       return state;
   }
