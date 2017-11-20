@@ -1,40 +1,117 @@
 import  React, { Comonent } from "react";
-import { connect } from "react-redux";
+ 
+class SettingsForm extends Component {
 
-import agent from ".././/agent";
-import ListErrors from "../ListErrors";
-import SettingsForm from "./SettingsForm";
+    state ={
+        image: "",
+        username: "",
+        bio: "",
+        email: "",
+        password: ""
+    }
+    
+    componentWillMount(){
+        if (this.props.currentUser){
+            const cu = this.props.currentUser;
+            Object.assign(this.state, {
+                image: cu.image || "",
+                username: cu.username,
+                bio: cu.bio,
+                email: cu.email
+            });
+        }
+    }
 
-const mapStateToProps = state => ({
-    ...state.settings,
-    currentUser: state.common.currentUser
-});
+    comoponetWillReceiveProps(nextProps) {
+        if(nextPropos.currentUser){
+            const cu = nextProps.currentUser;
+            this.setState(
+                Object.assign(this.state,{
+                    image: cu.image || "",
+                    username: cu.username,
+                    bio: cu.bio,
+                  email: cu.email  
+                })
+            );
+        }
+    }
 
-const mapDispatchToPorps = dispatch => ({
-    onClickLogout: () => dispatch({
-        type: "LOGOUT" }),
-    onSubmitForm: user =>
-        dispatch({ type: "SETTINGS_SAVED",
-    payload: agent.Auth.save(user)})
-    });
+    handleInputChange = event => {
+        const targetName = event.target.name;
+        this.setState({
+            [targetName]: event.target.value
+        });
+    };
 
-class Settings extends Component {
+    submitForm = e => {
+        e.preventDefault();
+        const user = Object.assign({}, this.state);
+        if (user.password.length <= 0){
+            delete user.password;
+        }
+        this.props.onSubmitForm(user);
+    };
     render(){
         return(
+<form onSubmit={e=>this.submitForm(e)}>
+    <fieldset>
+        <fieldset className="form-group">
+            <input 
+                classname="form-control"
+                type="text"
+                name="image"
+                placeholder="URL of profile picture"
+                value={this.state.image}
+                onChange={this.handleInputChange}
+                />
+        </fieldset>
+   
+        <fieldset className="form-group">
+            <input 
+                className="form-control form-control-lg"
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                />
+        </fieldset>
+        
+           
+        <fieldset className="form-group">
+        <textarea 
+            className="form-control form-control-lg"
+            rows="8"
+            name="bio"
+            placeholder="Short bio about your kitten"
+            value={this.state.bio}
+            onChange={this.handleInputChange}
+            />
 
-            <div className="setting-page">
-                <div className="container page">
-                    <div className="row">
-                        <div className="col-md-6 offset-md-3 col-xs-12">
-                            <h1 className="text-xs-center">Your Settings</h1>
-                            
-                            <ListErrors errors={this.props.errors} />
-                            <SettingsForm
-                                currentUser={this.props.currentUser}
-                                onSubmitForm={this.props.onSubmitForm}
-                                />
-                                <hr />
-
+    </fieldset>
+       
+    <fieldset className="form-group">
+            <input 
+                className="form-control form-control-lg"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                />
+        </fieldset>
+           
+        <fieldset className="form-group">
+            <input 
+                className="form-control form-control-lg"
+                type="password"
+                name="password"
+                placeholder="Username"
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                />
+        </fieldset>
+      
 
                                 <button 
                                     className="btn btn-outline-danger"
@@ -42,18 +119,14 @@ class Settings extends Component {
                                     >
                                     Or click here to logout.
                                 </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        );
+                                </fieldset>
+                                </form>
+        )
+
     }
-}
+
+}                               
 
 export default connect(mapStateToProps, mapDispatchToPorps)(Settings);
 
-
-        )
-    }
-
-}
+ 

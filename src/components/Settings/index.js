@@ -1,123 +1,52 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class SettingsForm extends Component {
-    state = {
-        image: "",
-        username: "",
-        bio: "",
-        email: "",
-        password: ""
-    }
-};
+import agent from "../../agent";
+import ListErrors from "../ListErrors";
+import SettingsForm from "./SettingsForm";
 
-componentWillMount() {
-    if (this.props.currentUser){
-        const cu = this.props.currentUser;
-        Object.assign(this.state, {
-            image: cu.image|| "",
-            username: cu.username,
-            bio: cu.bio,
-            email: cu.email
-        });
-    }
-}
+const mapStateToProps = state => ({
+    ...state.settings,
+    currentUser: state.common.currentUser
+})
 
-componentWillReceiveProps(nextProps){
-    if(nextProps.currentUser){
-        const cu = nextProps.currentUser;
-        this.setState(
-            Object.assign(this.state,{
-                image cu.image|| "",
-                username cu.username,
-                bio: cu.bio,
-                email: cu.email
-            })
-        );
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    onclickLogout: () => dispatch({type: "LOGOUT"}),
+    onSubmitForm: user =>
+        dispatch({ type: "SETTINGS_SAVED", payload: agent.Auth.save(user)})
 
-handleInputChange = event => {
-    const targetName = event.target.name;
-    this.setState({
-        [targetName]:event.target.value
-    })
-}
+});
 
-submitForm = e => {
-    e.preventDefault();
-    const user = Object.assign({}, this.state)
-    if (user.password.length <= 0){
-        delete user.password;
-    }
-    ths.props.onSubmitForm(user);
-};
 
-render(){
+class Settings  extends Component {
+     render(){ 
     return(
-        <form onSubmit = {e =>this.submitForm(e)}>
-            <fieldset>
-                <fieldset className="form-group">
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="image"
-                        placeholder="URL of profile picture"
-                        value={this.state.image}
-                        onChange={this.handleInputChange}
-                        />
-                </fieldset>
-                <fieldset>
-                    <input
-                    className="form-control form-control-lg"
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={this.state.username}
-                />
+       <div className="settings-page">
+           <div className="container page">
+               <div className="row">
+                   <div className="col-md-6 offset-md-3 col-xs-1">
+                       <h1 className="text-xs-center">  Your Settings</h1>
 
-                </fieldset>
-                <fieldset className="form-group">
-                    <textarea
-                        className="form-control-lg"
-                        rows="8"
-                        name="bio"
-                        placeholder="Short bio about you"
-                        value={thishandleINputChange}
-                        />
-                </fieldset>
+                       <ListErrors errors={this.props.errors} />
 
-                <fieldset className="form-group">
-                    <input 
-                        className="form-control form-control-lg"
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        vaue={this.state.email}
-                        onChange={this.handleInputChange}
+                       <SettingsForm
+                        currentUser={this.props.currentUser}
+                        onSubmitForm={this.props.onSubmitForm}
                         />
-                </fieldset>
+                        <hr />
 
-                <fieldset className="form-group">
-                    <input  
-                        className="form-control form-control-lg"
-                        type="password"
-                        name="password"
-                        placeholder="New password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                        />
-                    </fieldset>
-
-                    <button 
-                        className="btn btn-lg btn-primary pull-xs-right"
-                        type="submit"
-                        disabled={this.state.inProgress}
+                        <button
+                            className="btn btn-outline-danger"
+                            onClick={this.props.onClickLogou}
                         >
-                        update Settings
-                        </button>
-                        </fieldset>
-                        </form>
-    );
-} 
-
-export default SettingsForm;
+                         Or click here to logout.
+                         </button>
+                         </div>
+                        </div>
+                        </div>
+                        </div>
+    )
+}
+}
+    
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

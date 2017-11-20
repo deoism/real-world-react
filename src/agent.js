@@ -24,7 +24,12 @@ const requests = {
       .post(`${API_ROOT}${url}`, body)
       .use(tokenPlugin)
       .then(responseBody),
- 
+  put: (url,body) =>
+    superagent
+    .get(`${API_ROOT}${url}`)
+    .use(tokenPlugin)
+    .then(responseBody)
+      
 };
 
 const Articles = {
@@ -39,14 +44,15 @@ const Auth = {
     requests.post("/users", { user: { username, email, password } })
 };
 
-const Comments ={
-  create: (slug,comment) => request.post(`/articles/${slug}/{comments}`),
-  forArticle : slug=> request.get(`/articles/${slug}/{comments}`),
-  delete:(slug,commentId)=> request.delete(`/articles/${slug}/{comments}`)
+const Comments = {
+  create: (slug,comment) => requests.post(`/articles/${slug}/{comments}`),
+  forArticle : slug=> requests.get(`/articles/${slug}/{comments}`),
+  delete:(slug,commentId)=> requests.delete(`/articles/${slug}/{comments}`)
 }
-export default {
+export default { 
   Articles,
   Auth,
+  Comments,
   setToken: _token => {
     token = _token;
   }

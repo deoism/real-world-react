@@ -7,11 +7,10 @@ import ListErrors from "./ListErrors";
 
 const mapStateToProps = state => ({...state.auth});
 
-const mapdispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password);
     dispatch({ type: "REGITSTER", payload: payload });
-
   }
 });
 
@@ -26,7 +25,7 @@ class Register extends Component {
       const targetName = event.target.name;
       this.setState({
         [targetName]: event.target.value
-      })
+      });
     
   };
 
@@ -50,7 +49,7 @@ class Register extends Component {
 
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={this.submitForm(username,email,password)}>
+              <form onSubmit={e=>this.submitForm(e)}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
@@ -91,6 +90,7 @@ class Register extends Component {
                     disabled={this.props.inProgress}
                   >
                     Sign in
+                    join Deo
                   </button>
                 </fieldset>
               </form>
@@ -102,4 +102,5 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
+

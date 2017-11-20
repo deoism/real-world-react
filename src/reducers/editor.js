@@ -7,7 +7,7 @@ export default (state = {}, action) => {
           errors: action.error ? action.payload.errors : null
         };
       case "ASYNC_START":
-        if (action.subtype === "ARTICLE_SUBMITTED") {
+        if (action.subtype === "ARTICLE_SUBMITTED") { 
           return { ...state, inProgress: true };
         } else {
             return state;

@@ -44,22 +44,22 @@ handleTagChange = event => {
     }
     };
 
+
     submitForm = ev =>{
         ev.preventDefault();
-        const articcle = {
+        const article = {
             title: this.state.title,
             description: this.state.description,
             body: this.state.body,
             tagList: this.state.tagList
         };
 
-        this.props.onSubmit(agentArticles(create(article ));
+        this.props.onSubmit(agentArticles(create(article )));
     };
 
     removeTag = Tag => {
         console.log(tag);
     };
-}
 
     render(){
         const{ title, description, boy, tagList, tag} = this.state;
@@ -107,9 +107,9 @@ handleTagChange = event => {
                                                 <input className="form-control"
                                                 type="text"
                                                 name="tag"
-                                                value={tag}}
+                                                value={tag}
                                                 placeholder="Enter Tags"
-                                                onChange{this.handleTagChange}
+                                                onChange={this.handleTagChange}
                                                 onKeyUp={this.handleTagChange}
                                                  />
 
@@ -117,7 +117,8 @@ handleTagChange = event => {
                                                     {tagList.map(tag=>{
                                                         return(
                                                             <span className="tag-default tag-pill" key={tag}>
-                                                            <iclassName="icon-close-round"
+                                                            <i 
+                                                            className="icon-close-round"
                                                             onClick={this.removeTag(tag)}
                                                             />
                                                             {tag}
@@ -144,6 +145,6 @@ handleTagChange = event => {
         
         )
     }
-
+}
 
     export default connect(mapStateToProps, mapStateToDispatcch)(Editor);

@@ -33,7 +33,7 @@ render(){
 const markeup = {__html: marked(article.body)}
 
 return ( 
-    <div className="artice-page">
+    <div className="article-page">
         <div className="banner">
             <div className="container">
                 <h1> {article.title}</h1>
@@ -67,5 +67,5 @@ return (
                         />
                         </div>
                     </div>       );
-               
+
 export default connect(mapStateToProps, mapDispatchToProps)(Article);
