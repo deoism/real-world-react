@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; 
 import agent from "../agent";
 import ListErrors from "./ListErrors";
 
-const mapStateToProps = stae => ({
+const mapStateToProps = state => ({
     ...state.editor
 });
 
 const mapStateToDispatch = dispatch => ({
-    onSubmit: payload => dispatcch({ type: "ARTICLE_SUBMITTED",payload})
+    onSubmit: payload => dispatch({ type: "ARTICLE_SUBMITTED",payload})
 });
 
 class Editor extends Component {
@@ -22,7 +22,7 @@ class Editor extends Component {
     };
 
 handleInputChange = event => {
-    const targetName=even.targetname;
+    const targetName=event.targetname;
 
     this.setState({
         [targetName]:event.target.value
@@ -53,16 +53,22 @@ handleTagChange = event => {
             body: this.state.body,
             tagList: this.state.tagList
         };
+        const slug = { slug:this.props.params.slug};
+        const promise = this.props.paarams.slug 
+        ? agent.Articles.update(Object.assign(article,slug))
+        : agent.Articles.create(article);
 
-        this.props.onSubmit(agentArticles(create(article )));
+        this.props.onSubmit(promise);
     };
 
-    removeTag = Tag => {
-        console.log(tag);
+    removeTag = tag => {
+       this.setState({
+           tagList:[...this.state.tagList.filter(t =>t !== tag)]
+       });
     };
 
-    render(){
-        const{ title, description, boy, tagList, tag} = this.state;
+    render(){ 
+        const{ title, description, body, tagList, tag } = this.state;
         return (
             <div className="editor-page">
                 <div className="container page">
@@ -93,11 +99,12 @@ handleTagChange = event => {
                                            </fieldset>
 
                                            <fieldset className="form-group">
-                                               <text attributeNameclassName="form-control"
+                                               <textarea
+                                               className="form-control"
                                                rows="8"
                                                name="body"
                                                placeholder="write your article (in markdown"
-                                               value="{body}"
+                                               value={body}
                                                onChange={this.handleInputChange}
                                                />
                                                </fieldset>
@@ -123,7 +130,7 @@ handleTagChange = event => {
                                                             />
                                                             {tag}
                                                             </span>
-                                                        )
+                                                        );
                                                     })}
                                                     </div>
                                                     </fieldset>
@@ -132,7 +139,7 @@ handleTagChange = event => {
                                                         className="btn btn-lg pull-xs-right btn-primary"
                                                         type="button"
                                                         disabled={this.props.inProgress}
-                                                        onclick={this.submitForm}
+                                                        onClick={this.submitForm}
                                                         >
                                                         Publish Article
                                                         </button>
@@ -143,8 +150,8 @@ handleTagChange = event => {
                                     </div>
                                 </div>
         
-        )
+        );
     }
 }
 
-    export default connect(mapStateToProps, mapStateToDispatcch)(Editor);
+    export default connect(mapStateToProps, mapStateToDispatch)(Editor);

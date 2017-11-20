@@ -9,6 +9,7 @@ import App from "./components/App";
 import Home from "./components/Home/";
 import Login from "./components/Login";
 import Settings from "./components/Settings";
+import Editor from  "./components/Editor";
 import Register from "./components/Register";
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
         <IndexRoute component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/settings" component={Settings} />
+        <Route path="/editor" component={Editor} />
         <Route path="/register" component={Register} />
       </Route>
     </Router>

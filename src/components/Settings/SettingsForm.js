@@ -1,4 +1,4 @@
-import  React, { Comonent } from "react";
+import  React, { Component } from "react";
  
 class SettingsForm extends Component {
 
@@ -22,8 +22,8 @@ class SettingsForm extends Component {
         }
     }
 
-    comoponetWillReceiveProps(nextProps) {
-        if(nextPropos.currentUser){
+    componetWillReceiveProps(nextProps) {
+        if(nextProps.currentUser){
             const cu = nextProps.currentUser;
             this.setState(
                 Object.assign(this.state,{
@@ -65,7 +65,7 @@ class SettingsForm extends Component {
                 onChange={this.handleInputChange}
                 />
         </fieldset>
-   
+        
         <fieldset className="form-group">
             <input 
                 className="form-control form-control-lg"
@@ -127,6 +127,4 @@ class SettingsForm extends Component {
 
 }                               
 
-export default connect(mapStateToProps, mapDispatchToPorps)(Settings);
-
- 
+export default SettingsForm;
