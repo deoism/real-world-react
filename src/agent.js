@@ -18,7 +18,7 @@ const requests = {
     superagent
       .get(`${API_ROOT}${url}`)
       .use(tokenPlugin)
-      .then(responseBody),
+      .then(responseBody), 
   post: (url, body) =>
     superagent
       .post(`${API_ROOT}${url}`, body)
@@ -39,6 +39,11 @@ const Auth = {
     requests.post("/users", { user: { username, email, password } })
 };
 
+const Comments ={
+  create: (slug,comment) => request.post(`/articles/${slug}/{comments}`),
+  forArticle : slug=> request.get(`/articles/${slug}/{comments}`),
+  delete:(slug,commentId)=> request.delete(`/articles/${slug}/{comments}`)
+}
 export default {
   Articles,
   Auth,
