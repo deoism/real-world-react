@@ -58,9 +58,14 @@ return (
                 </div>
                 <hr />
                 <div className="article-actions" />
-                <div className="row" />
-                </div>
-                </div>
-        );
-    }
+                    <div className="row" />
+                        <CommentContainer
+                        comments={this.props.comments || []}
+                        errors={this.props.commentErrors}
+                        slug={this.props.params.id}
+                        currentUsers={this.props.currentUser}
+                        />
+                        </div>
+                    </div>       );
+               
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

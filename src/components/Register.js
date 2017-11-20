@@ -1,104 +1,105 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Link} from "react-router";
- 
+import { Link } from "react-router";
+
 import agent from "../agent";
 import ListErrors from "./ListErrors";
-const mapStateToProps = state => ({...state.auth})  ;
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit:(username, email, password) =>{
-    const payload = agent.Auth.register(username,email,password);
-    dispatch({ type: "REGISTER",payload: payload});
+const mapStateToProps = state => ({...state.auth});
+
+const mapdispatchToProps = dispatch => ({
+  onSubmit: (username, email, password) => {
+    const payload = agent.Auth.register(username, email, password);
+    dispatch({ type: "REGITSTER", payload: payload });
 
   }
 });
+
 
 class Register extends Component {
   state = {
     username: "",
     email: "",
     password: ""
-
   };
-  handleInputChange = event => {
-    const targetName = event.target.name;
-    this.setState({
-    [targetName]: event.target.value
-    });
+    handleInputChange = event => {
+      const targetName = event.target.name;
+      this.setState({
+        [targetName]: event.target.value
+      })
+    
   };
 
   submitForm = event => {
     event.preventDefault();
-    const { username, email, password} = this.state;
+    const { username, email, password } = this.state;
     this.props.onSubmit(username, email, password);
-  };
+  }
 
-  render(){
-    return(
+  render() {
+    const {username, email, password} = this.state;
+    return (
       <div className="auth-page">
         <div className="container page">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Sign Up</h1>
               <p className="text-xs-center">
-                <Link to="login"> have account?</Link>
+                <Link to="login">Have an account?</Link>
               </p>
-              
+
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={e=>this.submitForm(e)} > 
-              <fieldset>
-                <fieldset className="form-group" >
-                <input
-                className="form-control form-control-lg"
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={this.props.username} 
-                onChange={this.handleInputChange}
-                />
-              </fieldset>
+              <form onSubmit={this.submitForm(username,email,password)}>
+                <fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      value={username}
+                      onChange={this.handleInputChange}
+                    />
+                  </fieldset>
 
-              <fieldset className="form-group">
-              <input
-                className="form-control form-control-lg"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-                />
-              </fieldset>
-              <fieldset className="form-group">
-              <input
-                className="form-control form-control-lg"
-                type="password"
-                name="password"
-                placeholder="password"
-                value={this.setState.password}
-                onChange={this.handleInputChange}
-                />
-                </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={this.handleInputChange}
+                    />
+                  </fieldset>
 
-                <button
-                  className="btn btn-lg btn-primary pulls-xs-right"
-                  type="submit"
-                  disabled={this.props.inProgress}
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={this.handleInputChange}
+                    />
+                  </fieldset>
+
+                  <button
+                    className="btn btn-lg btn-primary pull-xs-right"
+                    type="submit"
+                    disabled={this.props.inProgress}
                   >
-                  Deo in
+                    Sign in
                   </button>
- 
-                </ fieldset>  
-                </form>
-                </div>
-                </ div> 
-                </div>
-                </div>
-              );
-           }
-        }
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-
-        export default connect(mapStateToProps, mapDispatchToProps)(Register);
-  
+export default Register;
