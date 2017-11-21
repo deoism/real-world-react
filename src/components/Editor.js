@@ -22,7 +22,7 @@ class Editor extends Component {
     };
 
 handleInputChange = event => {
-    const targetName=event.targetname;
+    const targetName = event.targetname;
 
     this.setState({
         [targetName]:event.target.value
@@ -62,7 +62,7 @@ handleTagChange = event => {
     };
 
     removeTag = tag => {
-       this.setState({
+       this.setState({ 
            tagList:[...this.state.tagList.filter(t =>t !== tag)]
        });
     };
@@ -72,7 +72,7 @@ handleTagChange = event => {
         return (
             <div className="editor-page">
                 <div className="container page">
-                    <div classname="row">
+                    <div className="row">
                         <div className="col-mid-10 offset-mid-1 col-xs-12">
                             <ListErrors errors={this.props.errors} />
 
@@ -84,7 +84,8 @@ handleTagChange = event => {
                                         name="title"
                                         placeholder="Artice Title"
                                         value={title}
-                                        onChange={this.handleInputChange}
+                                        onChange={this.handleTagChange}
+                                        onKeyUp={this.handleTagChange}
                                         />
                                         </fieldset>
                                         <fieldset className="form-group">
@@ -94,7 +95,8 @@ handleTagChange = event => {
                                            name="description"
                                            placeholder="What's this article about?"
                                            value={description}
-                                           onChange={this.handleInputChange}
+                                           onChange={this.handleTagChange}
+                                           onKeyUp={this.handleTagChange}
                                            />
                                            </fieldset>
 
@@ -105,7 +107,8 @@ handleTagChange = event => {
                                                name="body"
                                                placeholder="write your article (in markdown"
                                                value={body}
-                                               onChange={this.handleInputChange}
+                                               onChange={this.handleTagChange}
+                                               onKeyUp={this.handleTagChange}
                                                />
                                                </fieldset>
 
